@@ -46,9 +46,8 @@ const App = () => {
             todos.map((todo) => (
               <li key={todo.id.toString()}>
                 <span>{todo.title}</span>
-                <button type="button">
-                  ca
-                  <MdDelete size={28} />                  
+                <button type="button" aria-label="Excluir item">
+                  <MdDelete size={28} />
                 </button>
               </li>
             ))
