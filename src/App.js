@@ -4,14 +4,21 @@ import './App.css';
 
 const App = () => {
 
-  const initialTodos = [
-    { id: 1, title: "Estudar React", checked: false},
-    { id: 2, title: "Estudar Inglês", checked: true},
-    { id: 3, title: "Estudar guitarra", checked: false},
-  ]
-
-  const [todos] = useState(initialTodos)
+  const [todos, setTodos] = useState([])
   const[value, setValue] = useState("")
+
+  const onToggle = (elemento) => {
+    setTodos(
+      todos.map((obj) =>
+        obj.id === elemento.id ? {...obj, checked: !elemento.checked} : obj
+      )
+    )
+  }
+
+  const submit = () => {
+    setTodos([...todos,{id: new Date().getTime(), title: value, checked: false}])
+    setValue("")
+  }
 
   const onChange = (event) => {
     setValue(event.target.value)
@@ -19,8 +26,7 @@ const App = () => {
 
   const onKeyDown = (event) => {
     if(event.which === 13) {
-      console.log(event.target.value)
-      setValue("")
+      submit()
     } else if (event.which === 27) {
       setValue("")
     }
@@ -45,8 +51,14 @@ const App = () => {
           {
             todos.map((todo) => (
               <li key={todo.id.toString()}>
-                <span>{todo.title}</span>
-                <button type="button" aria-label="Excluir item">
+                <span 
+                  className= {["todo", todo.checked ? "checked" : ""].join(" ")}
+                  onClick={ () => onToggle(todo) }
+                  onKeyPress={() => onToggle(todo)}
+                  role='button'
+                  tabIndex={0}
+                  >{todo.title}</span>
+                <button type="button" aria-label="Excluir item" className='remove'>
                   <MdDelete size={28} />
                 </button>
               </li>
