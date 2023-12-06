@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {MdDelete} from 'react-icons/md';
 
-const TodoList = (todos, onToggle, onRemove) => (
+const TodoList = ({todos, onToggle, onRemove}) => (
         <ul className="todo-list">
         {
           todos.map((todo) => (
@@ -28,7 +28,7 @@ const TodoList = (todos, onToggle, onRemove) => (
       </ul>
     )
 
-TodoList.prototype = {
+TodoList.propTypes = {
     todos: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number.isRequired,
