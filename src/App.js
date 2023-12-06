@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
 import {MdDelete} from 'react-icons/md';
+import NewTodo from './components/NewTodo';
 import './App.css';
 
 const App = () => {
 
   const [todos, setTodos] = useState([])
-  const[value, setValue] = useState("")
+
+  const onNewTodo = (value) => {
+    setTodos([...todos,{id: new Date().getTime(), title: value, checked: false}])
+  }
 
   const onRemove = (elemento) => {
     setTodos(
@@ -20,23 +24,6 @@ const App = () => {
     )
   }
 
-  const submit = () => {
-    setTodos([...todos,{id: new Date().getTime(), title: value, checked: false}])
-    setValue("")
-  }
-
-  const onChange = (event) => {
-    setValue(event.target.value)
-  }
-
-  const onKeyDown = (event) => {
-    if(event.which === 13) {
-      submit()
-    } else if (event.which === 27) {
-      setValue("")
-    }
-  }
-
   return(
     <section id='app' className='container'>
 
@@ -45,13 +32,7 @@ const App = () => {
       </header>
 
       <section className='main'>
-        <input
-        className='new-todo'
-        placeholder='O que precisa ser feito?'
-        value={value}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        />
+        <NewTodo onNewTodo={onNewTodo}/>
         <ul className="todo-list">
           {
             todos.map((todo) => (
