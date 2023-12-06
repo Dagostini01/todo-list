@@ -7,6 +7,11 @@ const App = () => {
   const [todos, setTodos] = useState([])
   const[value, setValue] = useState("")
 
+  const onRemove = (elemento) => {
+    setTodos(
+    todos.filter((obj) => obj.id !== elemento.id)
+  )}
+
   const onToggle = (elemento) => {
     setTodos(
       todos.map((obj) =>
@@ -58,7 +63,12 @@ const App = () => {
                   role='button'
                   tabIndex={0}
                   >{todo.title}</span>
-                <button type="button" aria-label="Excluir item" className='remove'>
+                <button 
+                  type="button" 
+                  aria-label="Excluir item" 
+                  className='remove'
+                  onClick={() => onRemove(todo)}
+                  >
                   <MdDelete size={28} />
                 </button>
               </li>
