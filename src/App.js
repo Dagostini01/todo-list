@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import NewTodo from './components/NewTodo';
 import TodoList from './components/TodoList';
-import './App.css';
 
 const App = () => {
 
